@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kevin's Game Hub</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #1e1e1e, #3c3c3c);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* --- LOGIN PAGE --- */
+    #loginPage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    #loginPage input {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      width: 200px;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    #loginBtn {
+      padding: 10px 20px;
+      background-color: #333;
+      border: none;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    #loginBtn:hover {
+      background-color: #555;
+      transform: scale(1.05);
+    }
+
+    /* --- GAME HUB --- */
+    header {
+      background-color: #222;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+      font-size: 1.5rem;
+      letter-spacing: 1px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+    }
+
+    .btn {
+      display: block;
+      text-align: center;
+      padding: 12px;
+      background-color: #333;
+      border-radius: 8px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background-color: #555;
+      transform: scale(1.05);
+    }
+
+    #backBtn {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background: #444;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 15px;
+      font-size: 1rem;
+      cursor: pointer;
+      display: none;
+      transition: 0.2s;
+      z-index: 1000;
+    }
+
+    #backBtn:hover {
+      background: #666;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9rem;
+      color: #bbb;
+      background-color: #222;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+
+    #gameFrame {
+      width: 100%;
+      height: calc(100vh - 80px);
+      border: none;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <div id="loginPage">
+    <h1>🔐 Kevin’s Game Hub Login</h1>
+    <input type="text" id="username" placeholder="Enter your name">
+    <input type="password" id="password" placeholder="Enter password">
+    <button id="loginBtn" onclick="login()">Login</button>
+    <p id="loginMsg"></p>
+  </div>
+
+  <!-- MAIN GAME HUB -->
+  <div id="mainPage" style="display:none;">
+    <header>
+      <h1 id="welcomeText">🎮 Welcome, User 🎮</h1>
+      <p>Pick a game and start vibin’</p>
+    </header>
+
+    <button id="backBtn" onclick="goBack()">⬅ Back</button>
+
+    <div id="gameList" class="container">
+      <a href="" class="btn" onclick="loadGame(event, this.href)">FNAF</a>
+      <a href="./games/Cuphead.html" class="btn" onclick="loadGame(event, this.href)">Cuphead</a>
+      <a href="./games/Undertale.html" class="btn" onclick="loadGame(event, this.href)">Undertale</a>
+      <a href="./games/Hollow_Knight.html" class="btn" onclick="loadGame(event, this.href)">Hollow Knight</a>
+      <a href="https://cdn.jsdelivr.net/gh/kd1211/kgp@main/Kevins-games-HTMLS/Minecraft%201.8.8.html" class="btn" onclick="loadGame(event, this.href)">Minecraft 1.8</a>
+      <a href="./games/ULTRAKILL.html" class="btn" onclick="loadGame(event, this.href)">ULTRAKILL</a>
+    </div>
+
+    <iframe id="gameFrame"></iframe>
+
+    <footer>
+      <p>Made with ❤️ by Kevin | © 2025</p>
+    </footer>
+  </div>
+
+  <script>
+    function login() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const msg = document.getElementById('loginMsg');
+
+      if (password === "funni") {
+        document.getElementById('loginPage').style.display = 'none';
+        document.getElementById('mainPage').style.display = 'block';
+        document.getElementById('welcomeText').innerText = `🎮 Welcome, ${username || "User"} 🎮`;
+      } else {
+        msg.style.color = "red";
+        msg.innerText = "❌ Wrong password!";
+      }
+    }
+
+    function loadGame(event, url) {
+      event.preventDefault();
+      document.getElementById('gameList').style.display = 'none';
+      document.getElementById('backBtn').style.display = 'block';
+      const frame = document.getElementById('gameFrame');
+      frame.src = url;
+      frame.style.display = 'block';
+    }
+
+    function goBack() {
+      const frame = document.getElementById('gameFrame');
+      frame.src = '';
+      frame.style.display = 'none';
+      document.getElementById('backBtn').style.display = 'none';
+      document.getElementById('gameList').style.display = 'grid';
+    }
+  </script>
+
+</body>
+</html>
